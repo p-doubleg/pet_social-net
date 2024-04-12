@@ -6,18 +6,33 @@ class AuthScreenModel extends ChangeNotifier {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final authService = AuthService();
+  bool buttonIsActive = true;
   String? errorText;
 
   Future<void> login(BuildContext context) async {
+    buttonIsActive = false;
+    notifyListeners();
     final email = emailTextController.text;
     final password = passwordTextController.text;
-    authService.login(email: email, password: password);
-    Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+    if (email.isEmpty || password.isEmpty) {
+      errorText = 'Please enter email and password';
+    } else {
+      errorText = await authService.login(email: email, password: password);
+      if (errorText == null) {
+        redirectOnMainScreen(context);
+      }
+    }
+    buttonIsActive = true;
+    notifyListeners();
   }
 
   redirectOnSignUp(BuildContext context) async {
     await Navigator.of(context)
         .pushReplacementNamed(MainNavigationRouteNames.registrationScreen);
+  }
+
+  redirectOnMainScreen(BuildContext context) {
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
   }
 }

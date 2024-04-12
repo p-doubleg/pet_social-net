@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/auth/auth_screen_model.dart';
+import 'package:vk/ui/widgets/custom/button_widgets.dart';
+import 'package:vk/ui/widgets/custom/text_field_widgets.dart';
 
 class AuthScreenWidget extends StatelessWidget {
   const AuthScreenWidget({super.key});
@@ -11,6 +13,8 @@ class AuthScreenWidget extends StatelessWidget {
     final model = context.watch<AuthScreenModel>();
     final emailTextController = model.emailTextController;
     final passwordTextController = model.passwordTextController;
+    bool buttonIsActive = model.buttonIsActive;
+    String? errorText = model.errorText;
     onLogin() => model.login(context);
     onSignUp() => model.redirectOnSignUp(context);
 
@@ -34,102 +38,18 @@ class AuthScreenWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: emailTextController,
-              cursorColor: const Color(0xFF436BF1),
-              decoration: const InputDecoration(
-                labelText: 'Email address',
-                floatingLabelStyle: TextStyle(color: Color(0xFF2688EB)),
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                filled: true,
-                fillColor: Color(0xFFF2F3F5),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFD4D5D7)),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF2688EB)),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
-            ),
+            EmailTextFieldWidget(emailTextController: emailTextController),
             const SizedBox(height: 6),
-            TextField(
-              controller: passwordTextController,
-              obscureText: true,
-              cursorColor: const Color(0xFF436BF1),
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                floatingLabelStyle: TextStyle(color: Color(0xFF2688EB)),
-                // floatingLabelBehavior:FloatingLabelBehavior.never,
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                filled: true,
-                fillColor: Color(0xFFF2F3F5),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFD4D5D7)),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF2688EB)),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
-            ),
-            // if (errorText != null) ...[
-            //   const SizedBox(height: 16),
-            //   Text(errorText!),
-            // ],
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: onLogin,
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  foregroundColor: Colors.white,
-                  backgroundColor: const Color(0xFF2D81E1),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'Log In',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
+            PasswordTextFieldWidget(
+                passwordTextController: passwordTextController),
+            if (errorText != null) ...[
+              const SizedBox(height: 12),
+              Text(errorText, style: const TextStyle(color: Colors.red)),
+            ],
+            const SizedBox(height: 12),
+            LogInButtonWidget(onTap: buttonIsActive ? () => onLogin() : null),
             const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              // height: 46,
-              child: TextButton(
-                onPressed: onSignUp,
-                style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  foregroundColor: Colors.white,
-                  backgroundColor: const Color(0xFF4BB43B),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
+            SignUpButtonWidget(onTap: onSignUp),
           ],
         ),
       ),
