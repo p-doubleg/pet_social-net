@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746809037620",
+    "project_id": "pdoubleg-social-network",
+    "storage_bucket": "pdoubleg-social-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746809037620:android:e59849c85ba9a3801ccb61",
+        "android_client_info": {
+          "package_name": "com.partskhaladzeg.vk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvHLhun9AZ-UCy18gg1ZT8Ibo_dyD6RwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vk/ui/navigation/navigator_service.dart';
 
 class News {
   final int id;
@@ -83,7 +84,7 @@ class _NewsListWidgetState extends State<NewsListWidget> {
   void _onNewsTap(int index) {
     final id = _news[index].id;
     Navigator.of(context).pushNamed(
-      '/main_screen/news_details',
+      MainNavigationRouteNames.newsDetailsScreen,
       arguments: id,
     );
   }
@@ -152,7 +153,7 @@ class _NewsListWidgetState extends State<NewsListWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(14, 12, 12, 0),
+                    padding: const EdgeInsets.fromLTRB(14, 12, 12, 0),
                     child: Text(
                       news.text,
                       maxLines: 7,

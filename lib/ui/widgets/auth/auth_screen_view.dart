@@ -1,38 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:vk/ui/widgets/auth/auth_screen_model.dart';
 
-class AuthWidget extends StatefulWidget {
-  const AuthWidget({super.key});
-
-  @override
-  State<AuthWidget> createState() => _AuthWidgetState();
-}
-
-class _AuthWidgetState extends State<AuthWidget> {
-  final _emailTextController = TextEditingController(text: 'admin');
-  final _passwordTextController = TextEditingController(text: 'admin');
-  String? errorText;
-
-  void _logIn() {
-    final email = _emailTextController.text;
-    final password = _passwordTextController.text;
-    if (email == 'admin' && password == 'admin') {
-      errorText = null;
-      Navigator.of(context).pushReplacementNamed('/main_screen');
-    } else {
-      errorText = 'Login error';
-      print('FALSE');
-    }
-
-    setState(() {});
-  }
-
-  void _signUp() {
-    print('SIGN UP');
-  }
+class AuthScreenWidget extends StatelessWidget {
+  const AuthScreenWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AuthScreenModel>();
+    final emailTextController = model.emailTextController;
+    final passwordTextController = model.passwordTextController;
+    onLogin() => model.login(context);
+    onSignUp() => model.redirectOnSignUp(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(),
@@ -54,7 +35,7 @@ class _AuthWidgetState extends State<AuthWidget> {
             ),
             const SizedBox(height: 16),
             TextField(
-              controller: _emailTextController,
+              controller: emailTextController,
               cursorColor: const Color(0xFF436BF1),
               decoration: const InputDecoration(
                 labelText: 'Email address',
@@ -78,7 +59,7 @@ class _AuthWidgetState extends State<AuthWidget> {
             ),
             const SizedBox(height: 6),
             TextField(
-              controller: _passwordTextController,
+              controller: passwordTextController,
               obscureText: true,
               cursorColor: const Color(0xFF436BF1),
               decoration: const InputDecoration(
@@ -102,15 +83,15 @@ class _AuthWidgetState extends State<AuthWidget> {
                 ),
               ),
             ),
-            if (errorText != null) ...[
-              const SizedBox(height: 16),
-              Text(errorText!),
-            ],
+            // if (errorText != null) ...[
+            //   const SizedBox(height: 16),
+            //   Text(errorText!),
+            // ],
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: _logIn,
+                onPressed: onLogin,
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   foregroundColor: Colors.white,
@@ -132,7 +113,7 @@ class _AuthWidgetState extends State<AuthWidget> {
               width: double.infinity,
               // height: 46,
               child: TextButton(
-                onPressed: _signUp,
+                onPressed: onSignUp,
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   foregroundColor: Colors.white,
