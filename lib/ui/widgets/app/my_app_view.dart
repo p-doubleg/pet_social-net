@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: mainNavigation.routes,
-      initialRoute: MainNavigationRouteNames.authScreen,
+      initialRoute: MainNavigationRouteNames.mainScreen,
       onGenerateRoute: mainNavigation.onGenerateRoute,
     );
   }

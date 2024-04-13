@@ -4,8 +4,8 @@ class MainScreenModel extends ChangeNotifier {
   int selectedTab = 0;
   final Map<int, String> titles = {
     0: 'Feed',
-    1: 'Chats',
-    2: 'Friends',
+    1: 'Friends',
+    2: 'Profile',
   };
 
   void onSelectTab(int index) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/friend_list/friend_list_view.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_model.dart';
+import 'package:vk/ui/widgets/news_list/news_list_model.dart';
 import 'package:vk/ui/widgets/news_list/news_list_view.dart';
 
 class MainScreenWidget extends StatelessWidget {
@@ -22,10 +23,13 @@ class MainScreenWidget extends StatelessWidget {
       ),
       body: IndexedStack(
         index: selectedTab,
-        children: const [
-          NewsListWidget(),
-          Text('Chats'),
-          FriendListWidget(),
+        children: [
+          ChangeNotifierProvider(
+            create: (_) => NewsListScreenModel(),
+            child: const NewsListScreen(),
+          ),
+          const FriendListWidget(),
+          const Text('Chats'),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -40,12 +44,12 @@ class MainScreenWidget extends StatelessWidget {
             label: titles[0],
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.chat_bubble_outline),
+            icon: const Icon(Icons.people_alt_outlined),
             label: titles[1],
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.people_alt_outlined),
             label: titles[2],
+            icon: const Icon(Icons.person),
           ),
         ],
       ),
