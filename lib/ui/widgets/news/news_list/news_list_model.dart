@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vk/domains/services/db_service.dart';
+import 'package:vk/domains/entity/news.dart';
 import 'package:vk/ui/navigation/navigator_service.dart';
-import 'package:vk/ui/widgets/news_list/news_list_view.dart';
 
 class NewsListScreenModel extends ChangeNotifier {
   // final _news = <News>[];
@@ -64,7 +63,6 @@ class NewsListScreenModel extends ChangeNotifier {
     BuildContext context,
     int index,
   ) {
-    DBService().testAdd();
     final id = _news[index].id;
     Navigator.of(context).pushNamed(
       MainNavigationRouteNames.newsDetailsScreen,

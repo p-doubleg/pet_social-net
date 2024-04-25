@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class NewsDetailsWidget extends StatefulWidget {
+class NewsDetailsScreen extends StatefulWidget {
   final int newsId;
-  const NewsDetailsWidget({
+  const NewsDetailsScreen({
     super.key,
     required this.newsId,
   });
 
   @override
-  State<NewsDetailsWidget> createState() => _NewsDetailsWidgetState();
+  State<NewsDetailsScreen> createState() => _NewsDetailsWidgetState();
 }
 
-class _NewsDetailsWidgetState extends State<NewsDetailsWidget> {
+class _NewsDetailsWidgetState extends State<NewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(child: Text(widget.newsId.toString()));

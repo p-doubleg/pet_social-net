@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:vk/domains/factories/screen_factory.dart';
 
 abstract class MainNavigationRouteNames {
-  static const loaderScreen = '/';
-  static const authScreen = '/auth';
-  static const registrationScreen = '/registration';
-  static const mainScreen = '/main_screen/';
-  static const newsDetailsScreen = '/main_screen/news_details';
+  static const loaderScreen = '';
+  static const authScreen = 'auth';
+  static const registrationScreen = 'registration';
+  static const mainScreen = 'main_screen';
+  static const newsAddScreen = 'main_screen/news_add';
+  static const newsDetailsScreen = 'main_screen/news_details';
 }
 
 class MainNavigation {
@@ -18,6 +19,8 @@ class MainNavigation {
     MainNavigationRouteNames.registrationScreen: (_) =>
         _screenFactory.makeRegistrationScreen(),
     MainNavigationRouteNames.mainScreen: (_) => _screenFactory.makeMainScreen(),
+    MainNavigationRouteNames.newsAddScreen: (_) =>
+        _screenFactory.makeNewsAddScreen(),
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

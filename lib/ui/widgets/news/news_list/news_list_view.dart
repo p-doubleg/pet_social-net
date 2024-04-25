@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vk/ui/widgets/news_list/news_list_model.dart';
-
-class News {
-  final int id;
-  final String author;
-  final String text;
-  final String time;
-  final int viewsCount;
-  final int likesCount;
-  final int commentsCount;
-
-  News(
-      {required this.id,
-      required this.author,
-      required this.text,
-      required this.time,
-      required this.viewsCount,
-      required this.likesCount,
-      required this.commentsCount});
-}
+import 'package:vk/ui/widgets/news/news_list/news_list_model.dart';
 
 class NewsListScreen extends StatelessWidget {
   const NewsListScreen({super.key});

@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:vk/ui/navigation/navigator_service.dart';
 
 class MainScreenModel extends ChangeNotifier {
   int selectedTab = 0;
@@ -12,5 +13,9 @@ class MainScreenModel extends ChangeNotifier {
     if (index == selectedTab) return;
     selectedTab = index;
     notifyListeners();
+  }
+
+  void onAddNewsTap(BuildContext context) {
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.newsAddScreen);
   }
 }

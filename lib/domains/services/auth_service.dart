@@ -2,14 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final _firebaseInstance = FirebaseAuth.instance;
+  User? _user;
+  User? get user => _user;
 
   Future<String?> register(
       {required String email, required String password}) async {
     try {
-      final credential = await _firebaseInstance.createUserWithEmailAndPassword(
+      final credentials =
+          await _firebaseInstance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      _user = credentials.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak';
@@ -29,6 +33,7 @@ class AuthService {
     try {
       final credentials = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      _user = credentials.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email';
@@ -43,5 +48,9 @@ class AuthService {
       return 'Try again later';
     }
     return null;
+  }
+
+  User? isSingIn() {
+    return _firebaseInstance.currentUser;
   }
 }

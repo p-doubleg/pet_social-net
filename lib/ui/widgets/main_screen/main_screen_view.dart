@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/friend_list/friend_list_view.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_model.dart';
-import 'package:vk/ui/widgets/news_list/news_list_model.dart';
-import 'package:vk/ui/widgets/news_list/news_list_view.dart';
+import 'package:vk/ui/widgets/news/news_list/news_list_model.dart';
+import 'package:vk/ui/widgets/news/news_list/news_list_view.dart';
 
 class MainScreenWidget extends StatelessWidget {
   const MainScreenWidget({super.key});
@@ -13,6 +13,7 @@ class MainScreenWidget extends StatelessWidget {
     final model = context.watch<MainScreenModel>();
     final titles = model.titles;
     final selectedTab = model.selectedTab;
+    onAddNews() => model.onAddNewsTap(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFECEDF1),
@@ -20,6 +21,7 @@ class MainScreenWidget extends StatelessWidget {
         scrolledUnderElevation: 0,
         title: Text(titles[selectedTab]!),
         backgroundColor: Colors.white,
+        // automaticallyImplyLeading: false,
       ),
       body: IndexedStack(
         index: selectedTab,
@@ -32,6 +34,14 @@ class MainScreenWidget extends StatelessWidget {
           const Text('Chats'),
         ],
       ),
+      floatingActionButton: selectedTab != 0
+          ? null
+          : FloatingActionButton(
+              onPressed: onAddNews,
+              backgroundColor: Colors.white,
+              shape: const CircleBorder(),
+              child: const Icon(Icons.add),
+            ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTab,
         onTap: model.onSelectTab,

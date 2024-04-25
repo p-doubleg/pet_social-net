@@ -1,13 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:vk/domains/services/auth_service.dart';
+import 'package:vk/ui/navigation/navigator_service.dart';
+
 class LoaderScreenModel {
-  // final BuildContext context;
-
-  // LoaderScreenModel(this.context) {
-  //   asyncInit();
-  // }
-
-  // Future<void> asyncInit() async {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
+  // final AuthService _authService = AuthService();
+  // init(BuildContext context) async {
+  //   if (_authService.user != null) {
+  //     await Navigator.of(context)
+  //         .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+  //   } else {
+  //     await Navigator.of(context)
+  //         .pushReplacementNamed(MainNavigationRouteNames.authScreen);
+  //   }
   // }
 }
