@@ -9,9 +9,7 @@ class FriendListWidget extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () {
-              print('lol');
-            },
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(

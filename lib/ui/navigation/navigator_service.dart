@@ -26,7 +26,7 @@ class MainNavigation {
     switch (settings.name) {
       case MainNavigationRouteNames.newsDetailsScreen:
         final arguments = settings.arguments;
-        final newsId = arguments is int ? arguments : 0;
+        final newsId = arguments is String ? arguments : 'error';
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makeNewsDetailsScreen(newsId),
         );

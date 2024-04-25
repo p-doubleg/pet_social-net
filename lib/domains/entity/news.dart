@@ -1,18 +1,40 @@
-class News {
-  final int id;
-  final String author;
-  final String text;
-  final String time;
-  final int viewsCount;
-  final int likesCount;
-  final int commentsCount;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  News(
-      {required this.id,
-      required this.author,
-      required this.text,
-      required this.time,
-      required this.viewsCount,
-      required this.likesCount,
-      required this.commentsCount});
+class News {
+  final String authorUID;
+  final String authorName;
+  final String text;
+  final DateTime createdAt;
+  final int likesCount;
+
+  News({
+    required this.authorUID,
+    required this.authorName,
+    required this.text,
+    required this.createdAt,
+    required this.likesCount,
+  });
+
+  factory News.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> document,
+  ) {
+    final data = document.data();
+    return News(
+      authorUID: data?['authorUID'],
+      authorName: data?['authorName'],
+      text: data?['text'],
+      createdAt: (data?['createdAt'] as Timestamp).toDate(),
+      likesCount: data?['likes'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      "authorUID": authorUID,
+      "authorName": authorName,
+      "text": text,
+      "createdAt": Timestamp.fromDate(createdAt),
+      "likes": likesCount,
+    };
+  }
 }

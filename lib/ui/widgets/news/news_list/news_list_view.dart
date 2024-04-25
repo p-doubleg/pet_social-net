@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vk/ui/widgets/news/news_list/news_list_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NewsListScreen extends StatelessWidget {
   const NewsListScreen({super.key});
@@ -8,6 +9,8 @@ class NewsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<NewsListScreenModel>();
+    model.getNews();
+
     final newsCount = model.news.length;
 
     return ListView.builder(
@@ -21,7 +24,6 @@ class NewsListScreen extends StatelessWidget {
 
 class _NewsCardWidget extends StatelessWidget {
   const _NewsCardWidget({
-    super.key,
     required this.index,
   });
 
@@ -62,13 +64,13 @@ class _NewsCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          news.author,
+                          news.authorName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          news.time,
+                          timeago.format(news.createdAt),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -99,42 +101,21 @@ class _NewsCardWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_border_rounded,
-                      color: Color(0xFF9BA3AD),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.insert_comment_rounded,
-                      color: Color(0xFF9BA3AD),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.reply_rounded,
-                      color: Color(0xFF9BA3AD),
-                    ),
-                  ),
                   const Spacer(),
-                  const Icon(
-                    Icons.remove_red_eye_rounded,
-                    color: Color(0xFF9BA3AD),
-                  ),
-                  const SizedBox(width: 4),
-                  //TODO views formatting
-                  Text(
-                    news.viewsCount.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.favorite_border,
                       color: Color(0xFF9BA3AD),
                     ),
+                    label: Text(
+                      news.likesCount.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF9BA3AD),
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 12)
                 ],
               ),
             ],
@@ -142,6 +123,5 @@ class _NewsCardWidget extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

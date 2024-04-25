@@ -9,6 +9,7 @@ import 'package:vk/ui/widgets/loader_screen/loader_screen_view.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_model.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_view.dart';
 import 'package:vk/ui/widgets/news/news_details/news_details_screen_view.dart';
+import 'package:vk/ui/widgets/news/news_form/news_add_screen_model.dart';
 import 'package:vk/ui/widgets/news/news_form/news_add_screen_view.dart';
 
 class ScreenFactory {
@@ -40,11 +41,14 @@ class ScreenFactory {
     );
   }
 
-  Widget makeNewsDetailsScreen(int newsId) {
+  Widget makeNewsDetailsScreen(String newsId) {
     return NewsDetailsScreen(newsId: newsId);
   }
 
   Widget makeNewsAddScreen() {
-    return const NewsAddScreen();
+    return Provider(
+      create: (_) => NewsAddScreenModel(),
+      child: const NewsAddScreen(),
+    );
   }
 }
