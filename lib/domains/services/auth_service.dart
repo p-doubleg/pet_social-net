@@ -5,8 +5,6 @@ import 'package:vk/domains/services/db_service.dart';
 class AuthService {
   final _firebaseInstance = FirebaseAuth.instance;
   final _db = DBService();
-  UserModel? _userModel;
-  UserModel? get userModel => _userModel;
 
   Future<String?> register(
       {required String email, required String password}) async {
@@ -36,7 +34,6 @@ class AuthService {
     try {
       final credentials = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      _userModel = await _db.getUser(credentials.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email';
@@ -51,6 +48,10 @@ class AuthService {
       return 'Try again later';
     }
     return null;
+  }
+
+  Future<void> logOut() async {
+    await _firebaseInstance.signOut();
   }
 
   User? isSingIn() {

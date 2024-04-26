@@ -35,6 +35,16 @@ class DBService {
     return newsData;
   }
 
+  Future<List<News>> getNewsByUser(String uid) async {
+    final snapshot = await _db
+        .collection('news')
+        .where('authorUID', isEqualTo: uid)
+        .orderBy('createdAt', descending: true)
+        .get();
+    final newsData = snapshot.docs.map((e) => News.fromFirestore(e)).toList();
+    return newsData;
+  }
+
   Future<UserModel> getUser(String uid) async {
     final snapshot =
         await _db.collection('user').where('uid', isEqualTo: uid).get();
