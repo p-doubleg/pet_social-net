@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vk/domains/entity/user.dart';
 import 'package:vk/ui/widgets/auth/auth_screen_model.dart';
 import 'package:vk/ui/widgets/auth/auth_screen_view.dart';
 import 'package:vk/ui/widgets/auth/registration_screen_model.dart';
@@ -11,6 +12,8 @@ import 'package:vk/ui/widgets/main_screen/main_screen_view.dart';
 import 'package:vk/ui/widgets/news/news_details/news_details_view.dart';
 import 'package:vk/ui/widgets/news/news_form/news_add_screen_model.dart';
 import 'package:vk/ui/widgets/news/news_form/news_add_screen_view.dart';
+import 'package:vk/ui/widgets/profile/profile_model.dart';
+import 'package:vk/ui/widgets/profile/profile_view.dart';
 
 class ScreenFactory {
   Widget makeLoader() {
@@ -49,6 +52,13 @@ class ScreenFactory {
     return Provider(
       create: (_) => NewsAddScreenModel(),
       child: const NewsAddScreen(),
+    );
+  }
+
+  Widget makeProfileScreen(UserModel user) {
+    return ChangeNotifierProvider(
+      create: (_) => ProfileScreenModel(),
+      child: ProfileScreen(user: user),
     );
   }
 }

@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vk/domains/entity/user.dart';
 import 'package:vk/domains/services/auth_service.dart';
 import 'package:vk/ui/navigation/navigator_service.dart';
 
@@ -9,7 +9,6 @@ class MainScreenModel extends ChangeNotifier {
   final Map<int, String> titles = {
     0: 'Feed',
     1: 'Friends',
-    2: 'Profile',
   };
 
   void onSelectTab(int index) {
@@ -28,9 +27,15 @@ class MainScreenModel extends ChangeNotifier {
         .pushReplacementNamed(MainNavigationRouteNames.authScreen);
   }
 
-  User getUser() {
+  void onProfileTap(BuildContext context, UserModel user) {
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteNames.profileScreen, arguments: user);
+  }
+
+  UserModel getUser() {
     final user = _authService.isSingIn()!;
-    titles[2] = user.email!;
-    return user;
+    final userModel = UserModel(uid: user.uid, email: user.email!);
+    titles[2] = userModel.email;
+    return userModel;
   }
 }

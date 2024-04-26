@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vk/domains/entity/user.dart';
 import 'package:vk/domains/factories/screen_factory.dart';
 
 abstract class MainNavigationRouteNames {
@@ -8,6 +9,7 @@ abstract class MainNavigationRouteNames {
   static const mainScreen = 'main_screen';
   static const newsAddScreen = 'main_screen/news_add';
   static const newsDetailsScreen = 'main_screen/news_details';
+  static const profileScreen = 'main_screen/profile_screen';
 }
 
 class MainNavigation {
@@ -30,12 +32,12 @@ class MainNavigation {
         return MaterialPageRoute(
           builder: (_) => _screenFactory.makeNewsDetailsScreen(newsId),
         );
-      // case MainNavigationRouteNames.movieTrailerWidget:
-      //   final arguments = settings.arguments;
-      //   final youtubeKey = arguments is String ? arguments : '';
-      //   return MaterialPageRoute(
-      //     builder: (_) => _screenFactory.makeMovieTrailer(youtubeKey),
-      //   );
+      case MainNavigationRouteNames.profileScreen:
+        final arguments = settings.arguments;
+        final user = arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeProfileScreen(user),
+        );
       default:
         const widget = Text('Navigation error!!!');
         return MaterialPageRoute(builder: (_) => widget);

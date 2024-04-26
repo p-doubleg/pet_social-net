@@ -17,11 +17,11 @@ class FriendListScreenModel extends ChangeNotifier {
     BuildContext context,
     int index,
   ) {
-    final id = _friends?[index].uid;
+    final user = _friends?[index];
 
-    // Navigator.of(context).pushNamed(
-    //   MainNavigationRouteNames.newsDetailsScreen,
-    //   arguments: id,
-    // );
+    Navigator.of(context).pushNamed(
+      MainNavigationRouteNames.profileScreen,
+      arguments: user,
+    );
   }
 }

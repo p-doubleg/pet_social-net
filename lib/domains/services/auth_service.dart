@@ -14,7 +14,7 @@ class AuthService {
         email: email,
         password: password,
       );
-      _db.addUser(UserModel(uid: credentials.user!.uid, username: email));
+      _db.addUser(UserModel(uid: credentials.user!.uid, email: email));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak';
@@ -32,7 +32,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      final credentials = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

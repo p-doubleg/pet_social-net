@@ -9,7 +9,7 @@ class DBService {
     await _db.collection('news').add(
       {
         'authorUID': user.uid,
-        'authorName': user.username,
+        'authorName': user.email,
         'text': text,
         'createdAt': Timestamp.now(),
         'likes': 0,
@@ -21,7 +21,7 @@ class DBService {
     await _db.collection('user').add(
       {
         'uid': user.uid,
-        'username': user.username,
+        'username': user.email,
       },
     );
   }

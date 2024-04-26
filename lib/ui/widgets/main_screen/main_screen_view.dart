@@ -5,8 +5,6 @@ import 'package:vk/ui/widgets/friend_list/friend_list_view.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_model.dart';
 import 'package:vk/ui/widgets/news/news_list/news_list_model.dart';
 import 'package:vk/ui/widgets/news/news_list/news_list_view.dart';
-import 'package:vk/ui/widgets/profile/profile_model.dart';
-import 'package:vk/ui/widgets/profile/profile_view.dart';
 
 class MainScreenWidget extends StatelessWidget {
   const MainScreenWidget({super.key});
@@ -19,6 +17,7 @@ class MainScreenWidget extends StatelessWidget {
     final user = model.getUser();
     onAddNews() => model.onAddNewsTap(context);
     onLogOut() => model.onLogOutTap(context);
+    onProfile() => model.onProfileTap(context, user);
 
     return Scaffold(
       backgroundColor: const Color(0xFFECEDF1),
@@ -26,12 +25,19 @@ class MainScreenWidget extends StatelessWidget {
         scrolledUnderElevation: 0,
         title: Text(titles[selectedTab]!),
         backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: onProfile,
+          icon: const Icon(
+            Icons.account_circle,
+            size: 35,
+            color: Color(0xFF9BA3AD),
+          ),
+        ),
         actions: [
-          if (selectedTab == 2)
-            IconButton(
-              onPressed: onLogOut,
-              icon: const Icon(Icons.logout),
-            )
+          IconButton(
+            onPressed: onLogOut,
+            icon: const Icon(Icons.logout),
+          )
         ],
         // automaticallyImplyLeading: false,
       ),
@@ -45,10 +51,6 @@ class MainScreenWidget extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => FriendListScreenModel(),
             child: const FriendListScreen(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => ProfileScreenModel(),
-            child: ProfileScreen(user: user),
           ),
         ],
       ),
@@ -74,10 +76,6 @@ class MainScreenWidget extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_outlined),
             label: 'Friends',
-          ),
-          BottomNavigationBarItem(
-            label: 'Profile',
-            icon: Icon(Icons.person),
           ),
         ],
       ),

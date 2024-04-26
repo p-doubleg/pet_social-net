@@ -30,7 +30,7 @@ class FriendListScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    friends[index].username,
+                    friends[index].email,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontWeight: FontWeight.w600),
