@@ -30,7 +30,6 @@ class MainScreenModel extends ChangeNotifier {
 
   User getUser() {
     final user = _authService.isSingIn()!;
-    notifyListeners();
     titles[2] = user.email!;
     return user;
   }

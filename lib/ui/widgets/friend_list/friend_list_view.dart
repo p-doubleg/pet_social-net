@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vk/ui/widgets/friend_list/friend_list_model.dart';
 
-class FriendListWidget extends StatelessWidget {
-  const FriendListWidget({super.key});
+class FriendListScreen extends StatelessWidget {
+  const FriendListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<FriendListScreenModel>();
+    model.getFriends();
+    final friends = model.friends;
+    final friendsCount = friends.length;
+    final onFriendTap = model.onFriendTap;
+
     return ListView.builder(
-        itemCount: 10,
+        itemCount: friendsCount,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () {},
+            onTap: () => onFriendTap(context, index),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
@@ -21,11 +29,11 @@ class FriendListWidget extends StatelessWidget {
                     color: Color(0xFF9BA3AD),
                   ),
                   const SizedBox(width: 10),
-                  const Text(
-                    'Placeholder Name',
+                  Text(
+                    friends[index].username,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   const Spacer(),
                   IconButton(

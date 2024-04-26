@@ -51,4 +51,11 @@ class DBService {
     final user = snapshot.docs.map((e) => UserModel.fromFirestore(e)).single;
     return user;
   }
+
+  Future<List<UserModel>> getUsersFriends() async {
+    final snapshot = await _db.collection('user').get();
+    final friendsData =
+        snapshot.docs.map((e) => UserModel.fromFirestore(e)).toList();
+    return friendsData;
+  }
 }

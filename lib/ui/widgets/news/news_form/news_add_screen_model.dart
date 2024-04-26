@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vk/domains/services/auth_service.dart';
 import 'package:vk/domains/services/db_service.dart';
-import 'package:vk/ui/navigation/navigator_service.dart';
 
 class NewsAddScreenModel {
   final _db = DBService();
@@ -14,7 +13,6 @@ class NewsAddScreenModel {
     final user = await _db.getUser(userUID);
     _db.addNews(user, newsText);
 
-    Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+    Navigator.of(context).pop();
   }
 }

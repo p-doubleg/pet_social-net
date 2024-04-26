@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vk/ui/widgets/friend_list/friend_list_model.dart';
 import 'package:vk/ui/widgets/friend_list/friend_list_view.dart';
 import 'package:vk/ui/widgets/main_screen/main_screen_model.dart';
 import 'package:vk/ui/widgets/news/news_list/news_list_model.dart';
@@ -41,7 +42,10 @@ class MainScreenWidget extends StatelessWidget {
             create: (_) => NewsListScreenModel(),
             child: const NewsListScreen(),
           ),
-          const FriendListWidget(),
+          ChangeNotifierProvider(
+            create: (_) => FriendListScreenModel(),
+            child: const FriendListScreen(),
+          ),
           ChangeNotifierProvider(
             create: (_) => ProfileScreenModel(),
             child: ProfileScreen(user: user),
